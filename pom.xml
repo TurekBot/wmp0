@@ -9,13 +9,8 @@
     <version>1.0-SNAPSHOT</version>
 
 
-
-
-
-<!--to https://stackoverflow.com/a/5214119/5432315-->
-    <packaging>jar</packaging>
-    <name>WMP-0</name>
-    <url>http://localhost:8080</url>
+    <name>WMP-0</name> <!--The full name of the project.-->
+    <url>http://localhost:8080</url> <!--The URL to the project's homepage.-->
     <organization>
         <name>Ugma Development</name>
     </organization>
@@ -27,6 +22,8 @@
     </properties>
 
 
+    <!--These are the lists of the remote repositories Maven will use
+    for discovering dependencies and extensions.-->
     <repositories>
         <repository>
             <id>jboss</id>
@@ -141,8 +138,8 @@
 
                         <!-- KEYSTORE MANAGEMENT -->
                         <!--<keystoreConfig>-->
-                            <!--<delete>true</delete> &lt;!&ndash; delete the keystore &ndash;&gt;-->
-                            <!--<gen>true</gen>       &lt;!&ndash; optional shortcut to generate the store. &ndash;&gt;-->
+                        <!--<delete>true</delete> &lt;!&ndash; delete the keystore &ndash;&gt;-->
+                        <!--<gen>true</gen>       &lt;!&ndash; optional shortcut to generate the store. &ndash;&gt;-->
                         <!--</keystoreConfig>-->
                     </sign>
 
