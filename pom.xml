@@ -19,9 +19,11 @@
     <organization>
         <name>Ugma Development</name>
     </organization>
+
+    <!--You can put variables here in angle brackets. This can be helpful if you
+    end up replacing a certain value in multiple places often.-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <tomcat.version>9.0.0.M22</tomcat.version>
     </properties>
 
 
@@ -158,16 +160,18 @@
             </plugin>
         </plugins>
     </build>
+
+
+    <!--Put any dependencies your application has (like ControlsFX or LOGBack) here-->
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.apache.tomcat</groupId>-->
-            <!--<artifactId>tomcat-catalina</artifactId>-->
-            <!--<version>${tomcat.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.tomcat</groupId>-->
-            <!--<artifactId>tomcat-coyote</artifactId>-->
-            <!--<version>${tomcat.version}</version>-->
-        <!--</dependency>-->
+
+        <!--Various Cool GUI Components-->
+        <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>8.40.12</version>
+        </dependency>
+
     </dependencies>
 </project>
