@@ -29,6 +29,8 @@
     </dependencies>
 
     <properties>
+        <!--Whatever is here will get replace all instances of the string '${mainClass}' in the POM-->
+        <mainClass>tech.ugma.education.wmp0.Main</mainClass>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -54,7 +56,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>tech.ugma.education.wmp0.Main</mainClass>
+                            <mainClass>${mainClass}</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -103,7 +105,7 @@
                         <!--<outputFile>app.jnlp</outputFile>--> <!-- defaults to launch.jnlp -->
 
                         <!-- Used to automatically identify the jar containing the main class. -->
-                        <mainClass>tech.ugma.education.wmp0.Main</mainClass>
+                        <mainClass>${mainClass}</mainClass>
                     </jnlp>
 
 
