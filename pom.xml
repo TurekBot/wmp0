@@ -70,12 +70,32 @@
                 <version>1.0-beta-7</version>
                 <executions>
                     <execution>
+                        <id>create-keystore-sign-and-package</id>
                         <!-- The jnlp-inline goal isn't bound to a phase by default, but it makes it convenient.
-                        This binds it to the package phase-->
+                        This binds it to the package phase (so you can build the JNLP by simply calling `mvn package`)-->
                         <phase>package</phase>
                         <goals>
                             <goal>jnlp-inline</goal> <!--(see http://www.mojohaus.org/webstart/webstart-maven-plugin/plugin-info.html)-->
                         </goals>
+
+                        <configuration>
+                            <!-- Keystore Generation -->
+                            <!-- This tells the plugin to make you a keystore with the given information way down there -->
+                            <sign>
+                                <keystore>${project.build.directory}/keystore</keystore>
+                                <keypass>m2m2m2</keypass>
+                                <storepass>m2m2m2</storepass>
+
+                                <keystoreConfig>
+                                    <delete>true</delete> <!--This will automatically delete the keystore-->
+                                    <gen>true</gen> <!--This will automatically make a new keystore-->
+                                </keystoreConfig>
+                            </sign>
+
+                            <verbose>true</verbose>
+                        </configuration>
+
+
                     </execution>
                 </executions>
 
@@ -109,37 +129,56 @@
                     </jnlp>
 
 
+
                     <!-- SIGNING -->
-                    <!-- This step is necessary because of how much strict Java Security Expectations have become. -->
-                    <!-- Signing could be done by hand, but automating it makes things much easier. -->
-
+                    <!-- defining this will automatically sign the jar and its dependencies -->
                     <sign>
-                        <keystore>${project.basedir}/src/main/deploy/jnlp/the.keystore</keystore>
-                        <!--This is the timestamp authority. For an explanation, see: https://stackoverflow.com/a/24178906/5432315 .
-                        Having your app timestamped will prevent you from having to resign your deployed app every year.-->
-                        <tsaLocation>http://sha256timestamp.ws.symantec.com/sha256/timestamp</tsaLocation>
-                        <keypass>C3iwkmfG6</keypass>
-                        <storepass>C3iwkmfG6</storepass>
-                        <alias>brad</alias>
+                        <keystore>${project.build.directory}/keystore</keystore>
+                        <alias>alias</alias>
+                        <validity>1000000</validity>
 
-                        <!--<validity>fillme</validity>-->
+                        <dnameCn>www.example.com</dnameCn>
+                        <dnameOu>None</dnameOu>
+                        <dnameO>ExampleOrg</dnameO>
+                        <dnameL>Seattle</dnameL>
+                        <dnameSt>Washington</dnameSt>
+                        <dnameC>US</dnameC>
 
-                        <!--&lt;!&ndash; only required for generating the keystore &ndash;&gt;-->
-                        <!--<dnameCn>EmbeddedTomcatWebstart</dnameCn>-->
-                        <!--<dnameOu>Organisation Unit</dnameOu>-->
-                        <!--<dnameO>Organisation</dnameO>-->
-                        <!--<dnameL>Location</dnameL>-->
-                        <!--<dnameSt>State</dnameSt>-->
-                        <!--<dnameC>Country</dnameC>-->
-
-                        <verify>true</verify> <!-- verify that the signing operation succeeded -->
-
-                        <!-- KEYSTORE MANAGEMENT -->
-                        <!--<keystoreConfig>-->
-                        <!--<delete>true</delete> &lt;!&ndash; delete the keystore &ndash;&gt;-->
-                        <!--<gen>true</gen>       &lt;!&ndash; optional shortcut to generate the store. &ndash;&gt;-->
-                        <!--</keystoreConfig>-->
+                        <verify>true</verify>
                     </sign>
+
+
+                    <!--&lt;!&ndash; SIGNING &ndash;&gt;-->
+                    <!--&lt;!&ndash; This step is necessary because of how much strict Java Security Expectations have become. &ndash;&gt;-->
+                    <!--&lt;!&ndash; Signing could be done by hand, but automating it makes things much easier. &ndash;&gt;-->
+
+                    <!--<sign>-->
+                        <!--<keystore>${project.basedir}/src/main/deploy/jnlp/the.keystore</keystore>-->
+                        <!--&lt;!&ndash;This is the timestamp authority. For an explanation, see: https://stackoverflow.com/a/24178906/5432315 .-->
+                        <!--Having your app timestamped will prevent you from having to resign your deployed app every year.&ndash;&gt;-->
+                        <!--<tsaLocation>http://sha256timestamp.ws.symantec.com/sha256/timestamp</tsaLocation>-->
+                        <!--<keypass>C3iwkmfG6</keypass>-->
+                        <!--<storepass>C3iwkmfG6</storepass>-->
+                        <!--<alias>brad</alias>-->
+
+                        <!--&lt;!&ndash;<validity>fillme</validity>&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;&lt;!&ndash; only required for generating the keystore &ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;<dnameCn>EmbeddedTomcatWebstart</dnameCn>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<dnameOu>Organisation Unit</dnameOu>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<dnameO>Organisation</dnameO>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<dnameL>Location</dnameL>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<dnameSt>State</dnameSt>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<dnameC>Country</dnameC>&ndash;&gt;-->
+
+                        <!--<verify>true</verify> &lt;!&ndash; verify that the signing operation succeeded &ndash;&gt;-->
+
+                        <!--&lt;!&ndash; KEYSTORE MANAGEMENT &ndash;&gt;-->
+                        <!--&lt;!&ndash;<keystoreConfig>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<delete>true</delete> &lt;!&ndash; delete the keystore &ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;<gen>true</gen>       &lt;!&ndash; optional shortcut to generate the store. &ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;</keystoreConfig>&ndash;&gt;-->
+                    <!--</sign>-->
 
                     <!-- BUILDING PROCESS -->
 
