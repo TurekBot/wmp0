@@ -87,10 +87,10 @@
                     <outputJarVersions>true</outputJarVersions>
 
                     <!--This is required because of heightened security; see https://blogs.oracle.com/thejavatutorials/entry/jdk_7u45_and_javafx_2-->
-                    <updateManifestEntries>
-                        <Permissions>all-permissions</Permissions>
-                        <Codebase>*</Codebase>
-                    </updateManifestEntries>
+                    <!--<updateManifestEntries>-->
+                        <!--<Permissions>all-permissions</Permissions>-->
+                        <!--<Codebase>*</Codebase>-->
+                    <!--</updateManifestEntries>-->
 
 
                     <!-- JNLP generation -->
