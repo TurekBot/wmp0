@@ -9,6 +9,11 @@
     <version>1.0-SNAPSHOT</version>
 
 
+    <!--The webstart plugin uses this information, so it's important-->
+    <name>My Webstart App</name> <!--The full name of the project.-->
+    <url>http://localhost:8080</url> <!--This is usually the URL to the project's homepage, but the webstart
+    plugin also considers it to be the codebase, so it probably should be http://localhost-->
+
     <!--Put any dependencies your application has (like ControlsFX or LOGBack) in a <dependency> tag here-->
     <dependencies>
 
@@ -22,16 +27,14 @@
 
     </dependencies>
 
-    <!--You can put variables here in angle brackets. This can be helpful if you
-    end up replacing a certain value in multiple places often.
-    See the "Properties" heading here https://maven.apache.org/pom.html-->
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
 
     <build>
         <plugins>
 
+            <!--Used for compiling-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -64,10 +67,11 @@
                 <version>1.0-beta-7</version>
                 <executions>
                     <execution>
-                        <!--This binds it to the package phase-->
+                        <!-- The jnlp-inline goal isn't bound to a phase by default, but it makes it convenient.
+                        This binds it to the package phase-->
                         <phase>package</phase>
                         <goals>
-                            <goal>jnlp-inline</goal> <!-- use jnlp, jnlp-inline or jnlp-single as appropriate -->
+                            <goal>jnlp-inline</goal> <!--(see http://www.mojohaus.org/webstart/webstart-maven-plugin/plugin-info.html)-->
                         </goals>
                     </execution>
                 </executions>
@@ -75,18 +79,26 @@
                 <configuration>
                     <!-- Set to true to exclude all transitive dependencies (dependencies of your dependencies).
                     Default is false, so you could get rid of this tag. -->
-                    <excludeTransitive>false</excludeTransitive>
+                    <!--<excludeTransitive>false</excludeTransitive>-->
 
-                    <!-- The path where the libraries are stored within the jnlp structure. not required. by default the libraries are within the working directory -->
+                    <!-- The path where the libraries are stored within the jnlp structure.
+                     Not required. By default the libraries are within the working directory -->
                     <libPath>lib</libPath>
                     <outputJarVersions>true</outputJarVersions>
+
+                    <!--This is required because of heightened security; see https://blogs.oracle.com/thejavatutorials/entry/jdk_7u45_and_javafx_2-->
+                    <updateManifestEntries>
+                        <Permissions>all-permissions</Permissions>
+                        <Codebase>*</Codebase>
+                    </updateManifestEntries>
 
 
                     <!-- JNLP generation -->
                     <jnlp>
                         <!-- default values -->
-                        <!--inputTemplateResourcePath>${project.basedir}</inputTemplateResourcePath-->
-                        <!--inputTemplate>src/main/jnlp/template.vm</inputTemplate--> <!-- relative to inputTemplateResourcePath -->
+                        <!--<inputTemplateResourcePath>${project.basedir}</inputTemplateResourcePath>-->
+                        <!--<inputTemplate>src/main/jnlp/template.vm</inputTemplate>--> <!-- relative to inputTemplateResourcePath -->
+
                         <!--<outputFile>app.jnlp</outputFile>--> <!-- defaults to launch.jnlp -->
 
                         <!-- Used to automatically identify the jar containing the main class. -->
@@ -101,9 +113,8 @@
                     <sign>
                         <keystore>${project.basedir}/src/main/deploy/jnlp/the.keystore</keystore>
                         <keypass>C3iwkmfG6
-                        </keypass>  <!-- if we need to override passwords easily from the command line. ${keypass} -->
+                        </keypass>  <!-- if we need to override passwords, we can from the command line with ${keypass} -->
                         <storepass>C3iwkmfG6</storepass> <!-- ${storepass} -->
-                        <!--storetype>fillme</storetype--> <!--Does this really need to be filled?-->
                         <alias>brad</alias>
 
                         <!--<validity>fillme</validity>-->
@@ -127,13 +138,13 @@
 
                     <!-- BUILDING PROCESS -->
 
-                    <pack200>false</pack200>
-                    <gzip>false</gzip> <!-- default force when pack200 false, true when pack200 selected ?? -->
+                    <!--pack200 is a compression method. Enabling it can make downloading your application faster
+                    for the user; however I have yet to be able to get it to work, so for now I have it disabled.-->
+                    <!--<pack200>false</pack200>-->
 
                     <!-- causes a version attribute to be output in each jar resource element, optional, default is false -->
                     <outputJarVersions>false</outputJarVersions>
 
-                    <!--install>false</install--> <!-- not yet supported -->
                     <verbose>true</verbose>
                 </configuration>
             </plugin>
@@ -154,7 +165,5 @@
         </repository>
     </repositories>
 
-    <name>Webstart App</name> <!--The full name of the project.-->
-    <url>https://www.ugma.tech</url> <!--The URL to the project's homepage.-->
 
 </project>
