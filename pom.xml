@@ -12,7 +12,8 @@
     <!--The webstart plugin uses this information, so it's important-->
     <name>My Webstart App</name> <!--The full name of the project.-->
     <url>http://localhost:8080</url> <!--This is usually the URL to the project's homepage, but the webstart
-    plugin also considers it to be the codebase, so it probably should be http://localhost-->
+    plugin also considers it to be the codebase. If you're not hosting your app on a website yet, this value
+     will probably be http://localhost:8080-->
 
     <!--Put any dependencies your application has (like ControlsFX or LOGBack) in a <dependency> tag here-->
     <dependencies>
@@ -112,9 +113,11 @@
 
                     <sign>
                         <keystore>${project.basedir}/src/main/deploy/jnlp/the.keystore</keystore>
-                        <keypass>C3iwkmfG6
-                        </keypass>  <!-- if we need to override passwords, we can from the command line with ${keypass} -->
-                        <storepass>C3iwkmfG6</storepass> <!-- ${storepass} -->
+                        <!--This is the timestamp authority. For an explanation, see: https://stackoverflow.com/a/24178906/5432315 .
+                        Having your app timestamped will prevent you from having to resign your deployed app every year.-->
+                        <tsaLocation>http://sha256timestamp.ws.symantec.com/sha256/timestamp</tsaLocation>
+                        <keypass>C3iwkmfG6</keypass>
+                        <storepass>C3iwkmfG6</storepass>
                         <alias>brad</alias>
 
                         <!--<validity>fillme</validity>-->
@@ -142,8 +145,8 @@
                     for the user; however I have yet to be able to get it to work, so for now I have it disabled.-->
                     <!--<pack200>false</pack200>-->
 
-                    <!-- causes a version attribute to be output in each jar resource element, optional, default is false -->
-                    <outputJarVersions>false</outputJarVersions>
+                    <!-- causes a version attribute to be output in each jar's resource element, optional, default is false -->
+                    <!--<outputJarVersions>false</outputJarVersions>-->
 
                     <verbose>true</verbose>
                 </configuration>
