@@ -9,35 +9,29 @@
     <version>1.0-SNAPSHOT</version>
 
 
-    <name>WMP-0</name> <!--The full name of the project.-->
-    <url>http://localhost:8080</url> <!--The URL to the project's homepage.-->
-    <organization>
-        <name>Ugma Development</name>
-    </organization>
+    <!--Put any dependencies your application has (like ControlsFX or LOGBack) here-->
+    <dependencies>
+
+        <!--Various Cool GUI Components-->
+        <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>8.40.12</version>
+        </dependency>
+
+    </dependencies>
 
     <!--You can put variables here in angle brackets. This can be helpful if you
-    end up replacing a certain value in multiple places often.-->
+    end up replacing a certain value in multiple places often.
+    See the "Properties" heading here https://maven.apache.org/pom.html-->
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-
-    <!--These are the lists of the remote repositories Maven will use
-    for discovering dependencies and extensions.-->
-    <repositories>
-        <repository>
-            <id>jboss</id>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>sonatype</id>
-            <url>http://oss.sonatype.org/content/repositories/releases/</url>
-        </repository>
-    </repositories>
 
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -47,6 +41,7 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -59,67 +54,52 @@
                     </archive>
                 </configuration>
             </plugin>
+
+
+            <!--The webstart plugin-->
             <plugin>
                 <groupId>org.codehaus.mojo.webstart</groupId>
                 <artifactId>webstart-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <!-- bind to phase, I prefer to call it manualls -->
+                        <!--This binds it to the package phase-->
                         <phase>package</phase>
                         <goals>
                             <goal>jnlp-inline</goal> <!-- use jnlp, jnlp-inline or jnlp-single as appropriate -->
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <!--outputDirectory></outputDirectory--> <!-- not required?? -->
 
-                    <!-- Set to true to exclude all transitive dependencies. Default is false. -->
+                <configuration>
+                    <!-- Set to true to exclude all transitive dependencies (dependencies of your dependencies).
+                    Default is false, so you could get rid of this tag. -->
                     <excludeTransitive>false</excludeTransitive>
 
                     <!-- The path where the libraries are stored within the jnlp structure. not required. by default the libraries are within the working directory -->
                     <libPath>lib</libPath>
                     <outputJarVersions>true</outputJarVersions>
-                    <!-- [optional] transitive dependencies filter - if omitted, all transitive dependencies are included -->
-                    <dependencies>
-                        <!-- Note that only groupId and artifactId must be specified here. because of a limitation of the Include/ExcludesArtifactFilter -->
-                        <!--
-                        <includes>
-                            <include>commons-logging:commons-logging</include>
-                            <include>commons-cli:commons-cli</include>
-                        </includes>
-                        -->
-                        <!--
-                        <excludes>
-                            <exclude></exclude>
-                        <excludes>
-                        -->
-                    </dependencies>
 
-                    <!--
-                    <resourcesDirectory>${project.basedir}/src/main/jnlp/resources</resourcesDirectory>
-                    -->
-                    <!-- default value -->
 
                     <!-- JNLP generation -->
                     <jnlp>
                         <!-- default values -->
                         <!--inputTemplateResourcePath>${project.basedir}</inputTemplateResourcePath-->
                         <!--inputTemplate>src/main/jnlp/template.vm</inputTemplate--> <!-- relative to inputTemplateResourcePath -->
-                        <!--<outputFile>app.jnlp</outputFile> &lt;!&ndash; defaults to launch.jnlp &ndash;&gt;-->
+                        <!--<outputFile>app.jnlp</outputFile>--> <!-- defaults to launch.jnlp -->
 
-                        <!-- used to automatically identify the jar containing the main class. -->
-                        <!-- this is perhaps going to change -->
+                        <!-- Used to automatically identify the jar containing the main class. -->
                         <mainClass>tech.ugma.education.wmp0.Main</mainClass>
                     </jnlp>
 
 
                     <!-- SIGNING -->
-                    <!-- defining this will automatically sign the jar and its dependencies, if necessary -->
+                    <!-- This step is necessary because of how much strict Java Security Expectations have become. -->
+                    <!-- Signing could be done by hand, but automating it makes things much easier. -->
 
                     <sign>
                         <keystore>${project.basedir}/src/main/deploy/jnlp/the.keystore</keystore>
-                        <keypass>C3iwkmfG6</keypass>  <!-- if we need to override passwords easily from the command line. ${keypass} -->
+                        <keypass>C3iwkmfG6
+                        </keypass>  <!-- if we need to override passwords easily from the command line. ${keypass} -->
                         <storepass>C3iwkmfG6</storepass> <!-- ${storepass} -->
                         <!--storetype>fillme</storetype--> <!--Does this really need to be filled?-->
                         <alias>brad</alias>
@@ -159,16 +139,20 @@
     </build>
 
 
-    <!--Put any dependencies your application has (like ControlsFX or LOGBack) here-->
-    <dependencies>
+    <!--These are the lists of the remote repositories Maven will use
+    for discovering dependencies and extensions.-->
+    <repositories>
+        <repository>
+            <id>jboss</id>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>sonatype</id>
+            <url>http://oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+    </repositories>
 
-        <!--Various Cool GUI Components-->
-        <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
-        <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>8.40.12</version>
-        </dependency>
+    <name>Webstart App</name> <!--The full name of the project.-->
+    <url>https://www.ugma.tech</url> <!--The URL to the project's homepage.-->
 
-    </dependencies>
 </project>
