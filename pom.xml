@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
 
-    <!--Put any dependencies your application has (like ControlsFX or LOGBack) here-->
+    <!--Put any dependencies your application has (like ControlsFX or LOGBack) in a <dependency> tag here-->
     <dependencies>
 
         <!--Various Cool GUI Components-->
@@ -42,6 +42,7 @@
                 </configuration>
             </plugin>
 
+            <!--Will be used to put everything in one jar?-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -56,10 +57,11 @@
             </plugin>
 
 
-            <!--The webstart plugin-->
+            <!--The webstart plugin; produces the JNLP which you need to put in the same at the same path as your "codebase"-->
             <plugin>
-                <groupId>org.codehaus.mojo.webstart</groupId>
+                <groupId>org.codehaus.mojo</groupId>
                 <artifactId>webstart-maven-plugin</artifactId>
+                <version>1.0-beta-7</version>
                 <executions>
                     <execution>
                         <!--This binds it to the package phase-->
