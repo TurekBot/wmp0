@@ -120,7 +120,7 @@
                     <sign>
                         <keystore>${project.build.directory}/keystore</keystore>
                         <alias>alias</alias>
-                        <validity>10000000</validity>
+                        <validity>1000000</validity>
 
                         <keypass>m2m2m2</keypass>
                         <storepass>m2m2m2</storepass>
