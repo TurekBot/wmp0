@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.PlusMinusSlider?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.ugma.education.wmp0.Main">
-   <children>
-      <Text layoutX="156.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU DID IT!">
-         <font>
-            <Font name="Broadway" size="47.0" />
-         </font>
-      </Text>
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.ugma.education.wmp0.Controller">
+   <Text layoutX="156.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU DID IT!">
+      <font>
+         <Font name="Broadway" size="47.0"/>
+      </font>
+   </Text>
+   <PlusMinusSlider fx:id="plusMinusSlider" layoutX="203.0" layoutY="320.0"/>
+   <Rectangle fx:id="rectangle" arcHeight="50.0" arcWidth="50.0" fill="DODGERBLUE" height="130.0" layoutX="224.0"
+              layoutY="154.0" stroke="#e1dada" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="5.0"
+              width="130.0"/>
 </AnchorPane>

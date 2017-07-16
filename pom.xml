@@ -74,7 +74,8 @@
                         This binds it to the package phase (so you can build the JNLP by simply calling `mvn package`)-->
                         <phase>package</phase>
                         <goals>
-                            <goal>jnlp-inline</goal> <!--(see http://www.mojohaus.org/webstart/webstart-maven-plugin/plugin-info.html)-->
+                            <goal>jnlp-inline
+                            </goal> <!--(see http://www.mojohaus.org/webstart/webstart-maven-plugin/plugin-info.html)-->
                         </goals>
                     </execution>
                 </executions>
@@ -94,6 +95,7 @@
                     <updateManifestEntries>
                         <Permissions>all-permissions</Permissions>
                         <Codebase>*</Codebase>
+                        <Class-Path>controlsfx__V8.40.12.jar</Class-Path>
                     </updateManifestEntries>
 
 
@@ -108,7 +110,6 @@
                         <!-- Used to automatically identify the jar containing the main class. -->
                         <mainClass>${mainClass}</mainClass>
                     </jnlp>
-
 
 
                     <!-- SIGNING -->
@@ -138,7 +139,7 @@
                         <dnameC>US</dnameC>
 
                         <keystoreConfig>
-                        <delete>true</delete> <!--This will automatically delete the keystore-->
+                            <delete>true</delete> <!--This will automatically delete the keystore-->
                             <gen>true</gen> <!--This will automatically make a new keystore-->
                         </keystoreConfig>
 
