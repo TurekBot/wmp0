@@ -48,7 +48,7 @@
                 </configuration>
             </plugin>
 
-            <!--Will be used to put everything in one jar?-->
+            <!--This plugin will copy all the necessary jar names to the classpath-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -56,6 +56,7 @@
                 <configuration>
                     <archive>
                         <manifest>
+                            <addClasspath>true</addClasspath>
                             <mainClass>${mainClass}</mainClass>
                         </manifest>
                     </archive>
@@ -89,13 +90,11 @@
                     <!-- By default the libraries are right in the working directory. -->
                     <!-- Putting them in a lib folder keeps things cleaner. -->
                     <libPath>lib</libPath>
-                    <outputJarVersions>true</outputJarVersions>
 
                     <!--This is required because of heightened security; see https://blogs.oracle.com/thejavatutorials/entry/jdk_7u45_and_javafx_2-->
                     <updateManifestEntries>
                         <Permissions>all-permissions</Permissions>
                         <Codebase>*</Codebase>
-                        <Class-Path>controlsfx__V8.40.12.jar</Class-Path>
                     </updateManifestEntries>
 
 
@@ -131,12 +130,12 @@
                         <tsaLocation>http://sha256timestamp.ws.symantec.com/sha256/timestamp</tsaLocation>
 
                         <!--Include your information here-->
-                        <dnameCn>www.example.com</dnameCn>
-                        <dnameOu>None</dnameOu>
-                        <dnameO>ExampleOrg</dnameO>
-                        <dnameL>Seattle</dnameL>
-                        <dnameSt>Washington</dnameSt>
-                        <dnameC>US</dnameC>
+                        <dnameCn>www.example.com</dnameCn> <!--Your First and Last Name-->
+                        <dnameOu>None</dnameOu> <!--Your Organizational Unit (probably Developer)-->
+                        <dnameO>ExampleOrg</dnameO> <!--Your Organization-->
+                        <dnameL>Seattle</dnameL> <!--Your City -->
+                        <dnameSt>Washington</dnameSt> <!--Your State (or Province)-->
+                        <dnameC>US</dnameC> <!--Your 2-Letter Country Code-->
 
                         <keystoreConfig>
                             <delete>true</delete> <!--This will automatically delete the keystore-->
